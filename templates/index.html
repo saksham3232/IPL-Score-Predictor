@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cricket Score Predictor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #83a4d4, #b6fbff);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        .container {
+            margin-top: 50px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        select, button {
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏏 Predict Final Score</h1>
+        <form action="/predict" method="POST">
+            <label for="venue">Select Venue:</label>
+            <select name="venue" required>
+                {% for v in venues %}
+                <option value="{{ v }}">{{ v }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="batting_team">Select Batting Team:</label>
+            <select name="batting_team" required>
+                {% for bt in batting_teams %}
+                <option value="{{ bt }}">{{ bt }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="bowling_team">Select Bowling Team:</label>
+            <select name="bowling_team" required>
+                {% for blt in bowling_teams %}
+                <option value="{{ blt }}">{{ blt }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="striker">Select Striker:</label>
+            <select name="striker" required>
+                {% for s in batsmen %}
+                <option value="{{ s }}">{{ s }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="bowler">Select Bowler:</label>
+            <select name="bowler" required>
+                {% for b in bowlers %}
+                <option value="{{ b }}">{{ b }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Predict Score</button>
+        </form>
+
+        {% if predicted_score is defined %}
+        <div class="result">
+            Predicted Final Score: <span style="color: #28a745;">{{ predicted_score }}</span>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
